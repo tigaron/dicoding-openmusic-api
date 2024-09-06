@@ -4,4 +4,10 @@ const mapDBToModel = ({ created_at, updated_at, ...rest }) => ({
   updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel };
+const mapSongDBToModel = ({ id, title, performer }) => ({
+  id,
+  title,
+  performer,
+});
+
+module.exports = { mapDBToModel, mapSongDBToModel };
