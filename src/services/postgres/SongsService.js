@@ -10,7 +10,7 @@ class SongsService {
   }
 
   async addSong({ title, year, genre, performer, duration, albumId }) {
-    const id = `song-${nanoid(16)}`;
+    const id = nanoid(16);
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
@@ -38,8 +38,26 @@ class SongsService {
     return result.rows[0].id;
   }
 
-  async getSongs() {
-    const result = await this._pool.query("SELECT * FROM songs");
+  async getSongs({ title, performer }) {
+    let query = "SELECT * FROM songs";
+    const conditions = [];
+    const values = [];
+
+    if (title) {
+      conditions.push(`title ILIKE $${conditions.length + 1}`);
+      values.push(`%${title}%`);
+    }
+
+    if (performer) {
+      conditions.push(`performer ILIKE $${conditions.length + 1}`);
+      values.push(`%${performer}%`);
+    }
+
+    if (conditions.length) {
+      query += ` WHERE ${conditions.join(" AND ")}`;
+    }
+
+    const result = await this._pool.query(query, values);
     return result.rows.map(mapSongDBToModel);
   }
 
