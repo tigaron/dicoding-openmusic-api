@@ -2,20 +2,20 @@ const autoBind = require('auto-bind');
 
 class AlbumsHandler {
   constructor(service, validator) {
-    this._service = service;
-    this._validator = validator;
+    this.service = service;
+    this.validator = validator;
 
     autoBind(this);
   }
 
   async postAlbumHandler(request, h) {
-    this._validator.validateAlbumPayload(request.payload);
+    this.validator.validateAlbumPayload(request.payload);
     const { name, year } = request.payload;
 
-    const albumId = await this._service.addAlbum({ name, year });
+    const albumId = await this.service.addAlbum({ name, year });
 
     const response = h.response({
-      status: "success",
+      status: 'success',
       data: {
         albumId,
       },
@@ -24,35 +24,35 @@ class AlbumsHandler {
     return response;
   }
 
-  async getAlbumByIdHandler(request, h) {
+  async getAlbumByIdHandler(request) {
     const { id } = request.params;
-    const album = await this._service.getAlbumById(id);
+    const album = await this.service.getAlbumById(id);
     return {
-      status: "success",
+      status: 'success',
       data: {
         album,
       },
     };
   }
 
-  async putAlbumByIdHandler(request, h) {
-    this._validator.validateAlbumPayload(request.payload);
+  async putAlbumByIdHandler(request) {
+    this.validator.validateAlbumPayload(request.payload);
     const { id } = request.params;
 
-    await this._service.editAlbumById(id, request.payload);
+    await this.service.editAlbumById(id, request.payload);
 
     return {
-      status: "success",
-      message: "Album berhasil diperbarui",
+      status: 'success',
+      message: 'Album berhasil diperbarui',
     };
   }
 
-  async deleteAlbumByIdHandler(request, h) {
+  async deleteAlbumByIdHandler(request) {
     const { id } = request.params;
-    await this._service.deleteAlbumById(id);
+    await this.service.deleteAlbumById(id);
     return {
-      status: "success",
-      message: "Album berhasil dihapus",
+      status: 'success',
+      message: 'Album berhasil dihapus',
     };
   }
 }
