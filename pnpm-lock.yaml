@@ -8,6 +8,9 @@ dependencies:
   '@hapi/hapi':
     specifier: ^21.3.10
     version: 21.3.10
+  '@hapi/jwt':
+    specifier: ^3.2.0
+    version: 3.2.0
   auto-bind:
     specifier: '4'
     version: 4.0.0
@@ -133,6 +136,13 @@ packages:
       '@hapi/hoek': 11.0.4
     dev: false
 
+  /@hapi/catbox-object@3.0.1:
+    resolution: {integrity: sha512-3w6E2DXtjWbmLYi4WcFUOor5jgrXN4PWhDrMrXKP/cEsFSfVSRJ0FhY2PXrhrUHwcllfKezYafWU3tQ5+8RO1w==}
+    dependencies:
+      '@hapi/boom': 10.0.1
+      '@hapi/hoek': 11.0.4
+    dev: false
+
   /@hapi/catbox@12.1.1:
     resolution: {integrity: sha512-hDqYB1J+R0HtZg4iPH3LEnldoaBsar6bYp0EonBmNQ9t5CO+1CqgCul2ZtFveW1ReA5SQuze9GPSU7/aecERhw==}
     dependencies:
@@ -191,6 +201,10 @@ packages:
       '@hapi/validate': 2.0.1
     dev: false
 
+  /@hapi/hoek@10.0.1:
+    resolution: {integrity: sha512-CvlW7jmOhWzuqOqiJQ3rQVLMcREh0eel4IBnxDx2FAcK8g7qoJRQK4L1CPBASoCY6y8e6zuCy3f2g+HWdkzcMw==}
+    dev: false
+
   /@hapi/hoek@11.0.4:
     resolution: {integrity: sha512-PnsP5d4q7289pS2T2EgGz147BFJ2Jpb4yrEdkpz2IhgEUzos1S7HTl7ezWh1yfYzYlj89KzLdCRkqsP6SIryeQ==}
     dev: false
@@ -207,6 +221,21 @@ packages:
       '@hapi/bourne': 3.0.0
       '@hapi/cryptiles': 6.0.1
       '@hapi/hoek': 11.0.4
+    dev: false
+
+  /@hapi/jwt@3.2.0:
+    resolution: {integrity: sha512-2EU5zdr0petG63J2RHiagGByA1Qr6qzxMmrJJ3/0cm78be1Lq4vi038YgKJvbBSxSboIp5SWGZdYB6+CJlqEoQ==}
+    dependencies:
+      '@hapi/b64': 6.0.1
+      '@hapi/boom': 10.0.1
+      '@hapi/bounce': 3.0.1
+      '@hapi/bourne': 3.0.0
+      '@hapi/catbox-object': 3.0.1
+      '@hapi/cryptiles': 6.0.1
+      '@hapi/hoek': 10.0.1
+      '@hapi/wreck': 18.1.0
+      ecdsa-sig-formatter: 1.0.11
+      joi: 17.13.3
     dev: false
 
   /@hapi/mimos@7.0.1:
@@ -772,6 +801,12 @@ packages:
   /dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
+    dev: false
+
+  /ecdsa-sig-formatter@1.0.11:
+    resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
+    dependencies:
+      safe-buffer: 5.2.1
     dev: false
 
   /emoji-regex@8.0.0:
