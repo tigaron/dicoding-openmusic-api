@@ -57,8 +57,14 @@ class PlaylistsHandler {
     const { id: playlistId } = request.params;
 
     await this.service.verifySongIsExist(songId);
-    await this.service.verifyPlaylistOwner(playlistId, credentialId);
+    await this.service.verifyPlaylistAccess(playlistId, credentialId);
     await this.service.addSongToPlaylist(playlistId, songId);
+    await this.service.addPlaylistActivity(
+      playlistId,
+      songId,
+      credentialId,
+      'add',
+    );
 
     const response = h.response({
       status: 'success',
@@ -72,7 +78,7 @@ class PlaylistsHandler {
     const { id: credentialId } = request.auth.credentials;
     const { id: playlistId } = request.params;
 
-    await this.service.verifyPlaylistOwner(playlistId, credentialId);
+    await this.service.verifyPlaylistAccess(playlistId, credentialId);
     const songs = await this.service.getSongsFromPlaylist(playlistId);
 
     return {
@@ -83,14 +89,37 @@ class PlaylistsHandler {
     };
   }
 
+  async getPlaylistActivitiesByIdHandler(request) {
+    const { id: credentialId } = request.auth.credentials;
+    const { id: playlistId } = request.params;
+
+    await this.service.verifyPlaylistAccess(playlistId, credentialId);
+    const activities = await this.service.getPlaylistActivity(playlistId);
+
+    return {
+      status: 'success',
+      data: {
+        playlistId,
+        activities,
+      },
+    };
+  }
+
   async deletePlaylistSongByIdHandler(request) {
     this.validator.validateDeleteSongFromPlaylistPayload(request.payload);
     const { songId } = request.payload;
     const { id: credentialId } = request.auth.credentials;
     const { id: playlistId } = request.params;
 
-    await this.service.verifyPlaylistOwner(playlistId, credentialId);
+    await this.service.verifySongIsExist(songId);
+    await this.service.verifyPlaylistAccess(playlistId, credentialId);
     await this.service.deleteSongFromPlaylist(playlistId, songId);
+    await this.service.addPlaylistActivity(
+      playlistId,
+      songId,
+      credentialId,
+      'delete',
+    );
 
     return {
       status: 'success',
