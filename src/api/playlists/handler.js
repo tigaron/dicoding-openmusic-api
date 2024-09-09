@@ -79,12 +79,16 @@ class PlaylistsHandler {
     const { id: playlistId } = request.params;
 
     await this.service.verifyPlaylistAccess(playlistId, credentialId);
+    const playlist = await this.service.getPlaylistById(playlistId);
     const songs = await this.service.getSongsFromPlaylist(playlistId);
 
     return {
       status: 'success',
       data: {
-        songs,
+        playlist: {
+          ...playlist,
+          songs,
+        }
       },
     };
   }
